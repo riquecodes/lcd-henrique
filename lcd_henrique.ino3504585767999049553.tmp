@@ -1,0 +1,68 @@
+#include <LiquidCrystal.h>
+
+ 
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+ 
+int sinal=7;
+int sensor;
+int i = 0;
+int conta=0;
+int x = 0;
+int sinal2=8;
+int sensor2;
+
+void setup() {
+ 
+lcd.begin(16, 2);
+pinMode (sinal,INPUT_PULLUP);
+pinMode (sinal2, INPUT_PULLUP);
+}
+ 
+void loop() {
+  
+  if (x > 9){
+    x = 0;
+    i++;
+  }
+  if (i > 2){
+    i = 0;
+  }
+lcd.setCursor(0,0);
+lcd.print("CONTADOR DO BAU");
+lcd.setCursor(0, 1);
+lcd.print("PECA:");
+lcd.setCursor(6, 1);
+lcd.print(i);
+lcd.setCursor(7, 1);
+lcd.print(x);
+
+sensor = digitalRead(sinal);  
+sensor2 = digitalRead(sinal2);
+
+
+while (sensor == HIGH)
+{
+sensor = digitalRead(sinal); 
+}
+ 
+ 
+while (sensor == LOW)
+{
+sensor = digitalRead(sinal); 
+}
+
+ x++;
+
+
+
+ if(i > 3){
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("LOTADO");
+  delay(5000);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("NOVA CAIXA");
+}
+ 
+}
